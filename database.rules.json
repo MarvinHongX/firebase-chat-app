@@ -1,0 +1,59 @@
+{
+  "rules": {    
+    "rooms": {
+    	".read": "auth !== null",
+      ".write":  "auth !== null",
+      "name": {
+        ".validate": "newData.val().length > 0"
+      },
+      "$roomId": {
+      	"id": {
+          ".validate": "newData.val() === $roomId"
+        }
+      }
+    },
+    "messages": {
+      ".read": "auth !== null",
+      ".write": "auth !== null",
+      "content": {
+        ".validate": "newData.val().length > 0"
+      },
+      "image": {
+        ".validate": "newData.val().length > 0"
+      },
+      "user": {
+        ".validate": "newData.hasChildren(['id', 'displayName', 'photoURL'])"
+      }
+    },
+    "typing": {
+      ".read": "auth !== null",
+      ".write": "auth !== null"
+    },
+    "users": {
+      ".read": "auth !== null",
+      "$uid": {
+        ".write": "auth !== null",
+        ".validate": "newData.hasChildren(['displayName', 'email', 'photoURL', 'online'])",
+        "displayName": {
+          ".validate": "newData.val().length > 0"
+        },
+        "email": {
+          ".validate": "newData.val().length > 0"
+        },
+        "photoURL": {
+          ".validate": "newData.val().length > 0"
+        },
+    	"online": {
+      	".read": "true",
+      	".write": "true"
+    	},
+    	"rooms": {
+      	".read": "true",
+      	".write": "true"
+    	}    
+      
+      }
+    }
+    
+  }
+}
